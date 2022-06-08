@@ -10,7 +10,7 @@ public class Main {
         mainCity cT = new mainCity();
         Scanner in = new Scanner(System.in);
 
-        do {
+     //   do {
             System.out.println("SEJA BEM VINDO AO AOC\n Selecione uma das opções abaixo:");
             System.out.println("[1] - Cadastrar cidade\n[2] - Cadastrar vacina\n[3] - Cancelar");
             switch (opc = in.nextInt()) {
@@ -26,7 +26,7 @@ public class Main {
                     System.out.println("Obrigado por usar AOC! Programa encerrado");
 
             }
-        } while(opc !=3);
-        in.close();
+     //   } while(opc !=3);
+     //   in.close();
     }
 }

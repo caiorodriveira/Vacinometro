@@ -6,7 +6,7 @@ import java.nio.file.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class mainCity  {
+public class mainCity implements Serializable  {
 
 
 
@@ -36,12 +36,12 @@ public class mainCity  {
         Scanner in = new Scanner(System.in);
         initUrl getUrl = new initUrl();
 
-        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get(getUrl.SearchUrlCidade())))) {
+        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get("todos.dat")))) {
             while (true) {
 
-                Cidade c =(Cidade) input.readObject();
+                DosesAplicadas dosesApl = (DosesAplicadas) input.readObject();
 
-                System.out.printf("%s \n", c.cidade);
+                System.out.println(dosesApl.Cidade + " " + dosesApl.TiposDeDose + " " + dosesApl.DosesAplicadas +" \n");
             }
         } catch (EOFException e) {
             System.out.println("Fim dos registros");
@@ -57,43 +57,25 @@ public class mainCity  {
 
     public   void RegisterCTD() {
         // write your code here
-        Cidade c = new Cidade();
-        TiposDose t = new TiposDose();
-        DosesAplicadas d = new DosesAplicadas();
+        DosesAplicadas dosesApl = new DosesAplicadas();
+
         initUrl getUrl = new initUrl();
         try {
             Scanner in = new Scanner(System.in);
             System.out.println("Digite o nome da cidade");
-            c.cidade = in.nextLine();
+            dosesApl.Cidade = in.nextLine();
             System.out.println("Digite o tipo de dose");
-            t.TiposDose = in.nextLine();
-            System.out.println("Digite a quantidade de doses aplicadas");
-            d.DosesAplicadas = in.nextInt();
-            Path path = Paths.get(getUrl.SearchUrlCidade());
+            dosesApl.TiposDeDose = in.nextLine();
+            System.out.println("Digite a quantidade de doses");
+            dosesApl.DosesAplicadas = in.nextInt();
+            Path path = Paths.get("todos.dat");
             if (Files.exists(path)) {
 
-                try (FileOutputStream fosCidade = new FileOutputStream(getUrl.SearchUrlCidade(), true);
-                     AppendingObjectOutputStream output = new AppendingObjectOutputStream(fosCidade)) {
-                    output.writeObject(c);
-                } catch (FileNotFoundException e) {
-                    System.out.println("Nao foi possível abrir o arquivo "+ getUrl.SearchUrlCidade() +" !");
-                } catch (IOException e) {
-                    System.out.println("Erro de escrita no arquivo "+ getUrl.SearchUrlCidade() + " !");
-                }
-
-                try (FileOutputStream fosTiposDose = new FileOutputStream(getUrl.SearchUrlTiposDeDose(), true);
-                     AppendingObjectOutputStream outputCidade = new AppendingObjectOutputStream(fosTiposDose)) {
-                    outputCidade.writeObject(t);
-                } catch (FileNotFoundException e) {
-                    System.out.println("Nao foi possível abrir o arquivo "+ getUrl.SearchUrlTiposDeDose() +" !");
-                } catch (IOException e) {
-                    System.out.println("Erro de escrita no arquivo " + getUrl.SearchUrlTiposDeDose() + " !");
-                }
 
 
-                try (FileOutputStream fosDosesAplicadas = new FileOutputStream(getUrl.SearchUrlDosesAplicadas(), true);
-                     AppendingObjectOutputStream outputCidade = new AppendingObjectOutputStream(fosDosesAplicadas)) {
-                    outputCidade.writeObject(d);
+                try (FileOutputStream fosMainCad = new FileOutputStream("todos.dat", true);
+                     AppendingObjectOutputStream outputCidade = new AppendingObjectOutputStream(fosMainCad)) {
+                    outputCidade.writeObject(dosesApl);
                 } catch (FileNotFoundException e) {
                     System.out.println("Nao foi possível abrir o arquivo "+ getUrl.SearchUrlDosesAplicadas() +" !");
                 } catch (IOException e) {
@@ -103,7 +85,7 @@ public class mainCity  {
 
             } else {
                 try (ObjectOutputStream outputCidade = new ObjectOutputStream(Files.newOutputStream(path))) {
-                    outputCidade.writeObject(c);
+                    outputCidade.writeObject(dosesApl);
                 } catch (IOException e) {
                     System.out.println("Erro de escrita no arquivo conta.dat!");
                 }
@@ -121,14 +103,3 @@ public class mainCity  {
 
 }
 
-//try (
-//        FileWriter fw = new FileWriter(getUrl.SearchUrlCity(),true);
-//        BufferedWriter bw = new BufferedWriter(fw)) {
-//        String str = null;
-//    while (!(str = in.nextLine()).isEmpty()) {
-//        bw.write(str);
-//        bw.newLine();
-//    }
-//} catch (IOException e) {
-//    System.out.println("Erro de escrita");
-//}
