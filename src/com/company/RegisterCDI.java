@@ -6,42 +6,22 @@ import java.nio.file.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class mainCity implements Serializable  {
+public class RegisterCDI implements Serializable  {
 
 
-
-    public void SubMenuCityOptions()
-    {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Digite a opção desejada: \n [1] - Mostrar Cidades\n [2] - Cadastrar cidade\n [3] - Voltar ao menu anterior");
-        int opc = in.nextInt();
-
-        switch (opc)
-        {
-            case 1:
-                ShowCity();
-                break;
-            case 2:
-                RegisterCTD();
-                break;
-            case 3:
-
-                break;
-        }
-    }
 
 
     public  void  ShowCity()
     {
         Scanner in = new Scanner(System.in);
         initUrl getUrl = new initUrl();
-
-        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get("todos.dat")))) {
+        String urlNew = getUrl.SearchUrlDosesAplicadas();
+        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get("dosesApli.dat")))) {
             while (true) {
 
                 DosesAplicadas dosesApl = (DosesAplicadas) input.readObject();
+                System.out.println(dosesApl.Cidade + " " + dosesApl.TiposDeDose + " " + dosesApl.DosesAplicadas);
 
-                System.out.println(dosesApl.Cidade + " " + dosesApl.TiposDeDose + " " + dosesApl.DosesAplicadas +" \n");
             }
         } catch (EOFException e) {
             System.out.println("Fim dos registros");
@@ -50,15 +30,15 @@ public class mainCity implements Serializable  {
         } catch (IOException e) {
             System.out.println("Erro de leitura no arquivo");
         }
+
+
+
     }
-
-
-
 
     public   void RegisterCTD() {
         // write your code here
-        DosesAplicadas dosesApl = new DosesAplicadas();
 
+        DosesAplicadas dosesApl = new DosesAplicadas();
         initUrl getUrl = new initUrl();
         try {
             Scanner in = new Scanner(System.in);
@@ -68,26 +48,22 @@ public class mainCity implements Serializable  {
             dosesApl.TiposDeDose = in.nextLine();
             System.out.println("Digite a quantidade de doses");
             dosesApl.DosesAplicadas = in.nextInt();
-            Path path = Paths.get("todos.dat");
+            Path path = Paths.get("dosesApli.dat");
             if (Files.exists(path)) {
 
-
-
-                try (FileOutputStream fosMainCad = new FileOutputStream("todos.dat", true);
+                try (FileOutputStream fosMainCad = new FileOutputStream("dosesApli.dat", true);
                      AppendingObjectOutputStream outputCidade = new AppendingObjectOutputStream(fosMainCad)) {
                     outputCidade.writeObject(dosesApl);
                 } catch (FileNotFoundException e) {
-                    System.out.println("Nao foi possível abrir o arquivo "+ getUrl.SearchUrlDosesAplicadas() +" !");
+                    System.out.println("Nao foi possível abrir o arquivo dosesApli.data");
                 } catch (IOException e) {
-                    System.out.println("Erro de escrita no arquivo " + getUrl.SearchUrlDosesAplicadas() +" !");
+                    System.out.println("Erro de escrita no arquivo dosesApli.dat");
                 }
-
-
             } else {
                 try (ObjectOutputStream outputCidade = new ObjectOutputStream(Files.newOutputStream(path))) {
                     outputCidade.writeObject(dosesApl);
                 } catch (IOException e) {
-                    System.out.println("Erro de escrita no arquivo conta.dat!");
+                    System.out.println("Erro de escrita no arquivo");
                 }
             }
         }
@@ -96,10 +72,6 @@ public class mainCity implements Serializable  {
         } catch (InputMismatchException e) {
             System.out.println("Erro de entrada de dados!");
         }
-
-
     }
-
-
 }
 
