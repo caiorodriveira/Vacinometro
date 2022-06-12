@@ -9,9 +9,60 @@ import java.util.Scanner;
 public class RegisterCDI implements Serializable  {
 
 
+    public void CadCity()
+    {
+        CompareIfExist compare = new CompareIfExist();
+        TiposDose t = new TiposDose();
+        Cidade c = new Cidade();
+        try {
+            Scanner in = new Scanner(System.in);
+            System.out.println("Digite o nome da cidade");
+            c.cidade = in.nextLine();
+            if(compare.CompareCityIfExist(c.cidade))
+            {
+                System.out.println("Erro: ja' existe uma cidade com este nome");
+                return;
+            }
 
+            Path pathc = Paths.get("cidades.dat");
 
-    public  void  ShowCity()
+            if (Files.exists(pathc)) {
+
+                try (FileOutputStream fosMainCadd = new FileOutputStream("cidades.dat", true);
+                     AppendingObjectOutputStream outputCidadee = new AppendingObjectOutputStream(fosMainCadd)) {
+                    outputCidadee.writeObject(c);
+                } catch (FileNotFoundException e) {
+                    System.out.println("Nao foi possível abrir o arquivo cidades.data");
+                } catch (IOException e) {
+                    System.out.println("Erro de escrita no arquivo cidades.dat");
+                }
+            } else {
+                try (ObjectOutputStream outputCidadee = new ObjectOutputStream(Files.newOutputStream(pathc))) {
+                    outputCidadee.writeObject(c);
+                } catch (IOException e) {
+                    System.out.println("Erro de escrita no arquivo");
+                }
+            }
+
+        }
+        catch (InvalidPathException e) {
+            System.out.println("Nao foi possivel encontrar o arquivo conta.dat!");
+        } catch (InputMismatchException e) {
+            System.out.println("Erro de entrada de dados!");
+        }
+    }
+
+    public void ShowCity()
+    {
+
+    }
+
+    public void ShowType()
+    {
+
+    }
+
+    public  void  ShowAll()
     {
         Scanner in = new Scanner(System.in);
         initUrl getUrl = new initUrl();
@@ -73,5 +124,7 @@ public class RegisterCDI implements Serializable  {
             System.out.println("Erro de entrada de dados!");
         }
     }
+
+
 }
 

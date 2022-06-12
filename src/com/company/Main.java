@@ -12,16 +12,16 @@ public class Main {
 
         do {
             System.out.println("SEJA BEM VINDO AO GLIFE\n Selecione uma das opções abaixo:");
-            System.out.println("[1] - Cadastrar cidade\n[2] - Mostrar Vacinometro\n[3] - Alterar Doses Aplicadas" );
+            System.out.println("[1] - Cadastrar cidade\n[2] - Mostrar Vacinometro\n[3] - Cadastrar cidade/tipo" );
             switch (opc = in.nextInt()) {
                 case 1:
                     cT.RegisterCTD();
                     break;
                 case 2:
-                    cT.ShowCity();
+                    cT.ShowAll();
                     break;
                 case 3:
-
+                    cT.CadCity();
                     break;
                 case 4:
                     break;
