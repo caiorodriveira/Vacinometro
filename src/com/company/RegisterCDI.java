@@ -119,7 +119,7 @@ public class RegisterCDI implements Serializable  {
             }
         }
         catch (InvalidPathException e) {
-            System.out.println("Nao foi possivel encontrar o arquivo conta.dat!");
+            System.out.println("Nao foi possivel encontrar o arquivo dosesApli.dat!");
         } catch (InputMismatchException e) {
             System.out.println("Erro de entrada de dados!");
         }
