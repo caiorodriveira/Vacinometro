@@ -9,11 +9,12 @@ public class Main {
         int opc = 0;
         RegisterCDI cT = new RegisterCDI();
         ShowFunctions sF = new ShowFunctions();
+        ImportOrExport iE = new ImportOrExport();
         Scanner in = new Scanner(System.in);
 
         do {
             System.out.println("SEJA BEM VINDO AO GLIFE\nSelecione uma das opções abaixo:");
-            System.out.println("[1] - Cadastrar cidade\n[2] - Mostrar Vacinometro\n[3] - Cadastrar cidade/tipo\n[4] - Listar cidades\n[5] - Listar Doses\n[6] - Sair" );
+            System.out.println("[1] - Cadastrar cidade\n[2] - Mostrar Vacinometro\n[3] - Cadastrar cidade/tipo\n[4] - Listar cidades\n[5] - Listar Doses\n[6] - Importar CSV\n[7] - Exportar CSV\n[8] - Sair" );
             switch (opc = in.nextInt()) {
                 case 1:
                     cT.RegisterCTD();
@@ -31,11 +32,17 @@ public class Main {
                     sF.ShowTypes();
                     break;
                 case 6:
+                    iE.ImportCSV();
+                    break;
+                case 7:
+                    iE.ExportCSV();
+                    break;
+                case 8:
                     break;
                 default:
 
             }
-        } while(opc !=6);
+        } while(opc !=8 );
         System.out.println("Obrigado por usar GLIFE! Programa encerrado");
         in.close();
     }

@@ -97,7 +97,7 @@ public class RegisterCDI implements Serializable  {
 
                 try (FileOutputStream fosMainCad = new FileOutputStream("dosesApli.dat", true);
                      AppendingObjectOutputStream outputCidade = new AppendingObjectOutputStream(fosMainCad)) {
-                    outputCidade.writeObject(dosesApl);
+                    outputCidade.writeObject(dosesApl.Cidade);
                 } catch (FileNotFoundException e) {
                     System.out.println("Nao foi possível abrir o arquivo dosesApli.data");
                 } catch (IOException e) {
