@@ -47,9 +47,12 @@ public class Main {
         in.close();
     }
 
-    public class  oi{
-
-    }
 }
 
 
+//PRROGRAMO FEITO POR:
+//Caiuuuuuuuuuuuuuuuuuuuuu(Caio Rodrigo)
+//Nakinha(Gabriely)
+//Guizao(Guilherme  Dias)
+//Grilo(Pedro Vinicius)
+//Reduzida(Victoria)
