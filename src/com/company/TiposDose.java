@@ -1,5 +1,7 @@
 package com.company;
 
-public class TiposDose {
+import java.io.Serializable;
+
+public class TiposDose implements Serializable {
     String TiposDose;
 }

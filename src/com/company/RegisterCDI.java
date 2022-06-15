@@ -8,84 +8,77 @@ import java.util.Scanner;
 
 public class RegisterCDI implements Serializable  {
 
-
-    public void CadCity()
+    //INICIO DO PROGRAMA CADCITY QUE É RESPONSÁVEL PELO CADASTRO DE TUDO O QUE TEM NOS ARQUIVOS "cidades.dat" && "tiposdose.dat
+    public  static void CadCity()
     {
-        CompareIfExist compare = new CompareIfExist();
-        TiposDose t = new TiposDose();
         Cidade c = new Cidade();
+        TiposDose t = new TiposDose();
+        CompareIfExist compare = new CompareIfExist();
         try {
             Scanner in = new Scanner(System.in);
-            System.out.println("Digite o nome da cidade");
+            System.out.print("Digite o nome da cidade: ");
             c.cidade = in.nextLine();
-            if(compare.CompareCityIfExist(c.cidade))
-            {
-                System.out.println("Erro: ja' existe uma cidade com este nome");
+            if (compare.CityExist(c.cidade)) {
+                System.out.println("ERROR 404: JÁ EXISTE UMA CIDADE CADASTRADA COM ESSE NOME");
                 return;
             }
-
+            System.out.println("Digite o nome da dose: ");
+            t.TiposDose = in.nextLine();
+            if(compare.TypeExist(t.TiposDose)){
+                System.out.println("ERROR 404: JÁ EXISTE UMA DOSE CADASTRADA COM ESSE NOME");
+                return;
+            }
             Path pathc = Paths.get("cidades.dat");
-
+            Path patht = Paths.get("tiposdose.dat");
             if (Files.exists(pathc)) {
-
-                try (FileOutputStream fosMainCadd = new FileOutputStream("cidades.dat", true);
-                     AppendingObjectOutputStream outputCidadee = new AppendingObjectOutputStream(fosMainCadd)) {
-                    outputCidadee.writeObject(c);
+                try (FileOutputStream fos = new FileOutputStream("cidades.dat", true);
+                     AppendingObjectOutputStream output = new AppendingObjectOutputStream(fos)) {
+                    output.writeObject(c);
                 } catch (FileNotFoundException e) {
-                    System.out.println("Nao foi possível abrir o arquivo cidades.data");
+                    System.out.println("Nao foi possível abrir o arquivo cidades.dat!");
                 } catch (IOException e) {
-                    System.out.println("Erro de escrita no arquivo cidades.dat");
+                    System.out.println("Erro de escrita no arquivo cidades.dat!");
                 }
             } else {
-                try (ObjectOutputStream outputCidadee = new ObjectOutputStream(Files.newOutputStream(pathc))) {
-                    outputCidadee.writeObject(c);
+                try (ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(pathc))) {
+                    output.writeObject(c);
                 } catch (IOException e) {
-                    System.out.println("Erro de escrita no arquivo");
+                    System.out.println("Erro de escrita no arquivo cidades.dat!");
                 }
             }
 
-        }
-        catch (InvalidPathException e) {
-            System.out.println("Nao foi possivel encontrar o arquivo conta.dat!");
+            //INICIO CADASTRO DO TIPO DE DOSE
+            if (Files.exists(patht)) {
+                try (FileOutputStream fos = new FileOutputStream("tiposdose.dat", true);
+                     AppendingObjectOutputStream output = new AppendingObjectOutputStream(fos)) {
+                    output.writeObject(t);
+                } catch (FileNotFoundException e) {
+                    System.out.println("Nao foi possível abrir o arquivo tiposdose.dat!");
+                } catch (IOException e) {
+                    System.out.println("Erro de escrita no arquivo tiposdose.dat!");
+                }
+            } else {
+                try (ObjectOutputStream output = new ObjectOutputStream(Files.newOutputStream(patht))) {
+                    output.writeObject(t);
+                } catch (IOException e) {
+                    System.out.println("Erro de escrita no arquivo tiposdose.dat!");
+                }
+            }
+            //FIM CADASTRO DO TIPO DE DOSE
+
+        } catch (InvalidPathException e) {
+            System.out.println("Nao foi possivel encontrar o arquivo um dos arquivos!");
         } catch (InputMismatchException e) {
             System.out.println("Erro de entrada de dados!");
         }
-    }
-
-    public void ShowCity()
-    {
 
     }
-
-    public void ShowType()
-    {
-
-    }
-
-    public  void  ShowAll()
-    {
-        Scanner in = new Scanner(System.in);
-        initUrl getUrl = new initUrl();
-        String urlNew = getUrl.SearchUrlDosesAplicadas();
-        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get("dosesApli.dat")))) {
-            while (true) {
-
-                DosesAplicadas dosesApl = (DosesAplicadas) input.readObject();
-                System.out.println(dosesApl.Cidade + " " + dosesApl.TiposDeDose + " " + dosesApl.DosesAplicadas);
-
-            }
-        } catch (EOFException e) {
-            System.out.println("Fim dos registros");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Tipo de objeto invalido!");
-        } catch (IOException e) {
-            System.out.println("Erro de leitura no arquivo");
-        }
+    //FIM DO PROGRAMA"
 
 
 
-    }
 
+    // INICIO DO PROGRAMA REGISTERCTD, responsável por cadastrar os dados no arquivo "dosesApli.dat"
     public   void RegisterCTD() {
         // write your code here
 
@@ -124,7 +117,7 @@ public class RegisterCDI implements Serializable  {
             System.out.println("Erro de entrada de dados!");
         }
     }
-
+    // FIM DO PROGRAMA REGISTERCTD
 
 }
 
