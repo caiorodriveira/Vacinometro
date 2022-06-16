@@ -6,7 +6,7 @@ import java.nio.file.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class RegisterCDI implements Serializable  {
+public class ResgisterFunctions implements Serializable  {
 
     //INICIO DO PROGRAMA CADCITY QUE É RESPONSÁVEL PELO CADASTRO DE TUDO O QUE TEM NOS ARQUIVOS "cidades.dat" && "tiposdose.dat
     public  static void CadCity()
@@ -24,10 +24,6 @@ public class RegisterCDI implements Serializable  {
             }
             System.out.println("Digite o nome da dose: ");
             t.TiposDose = in.nextLine();
-            if(compare.TypeExist(t.TiposDose)){
-                System.out.println("ERROR 404: JÁ EXISTE UMA DOSE CADASTRADA COM ESSE NOME");
-                return;
-            }
             Path pathc = Paths.get("cidades.dat");
             Path patht = Paths.get("tiposdose.dat");
             if (Files.exists(pathc)) {

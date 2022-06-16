@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
         int opc = 0;
-        RegisterCDI cT = new RegisterCDI();
+        ResgisterFunctions cT = new ResgisterFunctions();
         ShowFunctions sF = new ShowFunctions();
         ImportOrExport iE = new ImportOrExport();
         Scanner in = new Scanner(System.in);
@@ -50,7 +50,7 @@ public class Main {
 }
 
 
-//PRROGRAMO FEITO POR:
+//PRROGRAMODORES
 //Caiuuuuuuuuuuuuuuuuuuuuu(Caio Rodrigo)
 //Nakinha(Gabriely)
 //Guizao(Guilherme  Dias)

@@ -42,6 +42,7 @@ public class ShowFunctions {
 
 
             }
+
         } catch (EOFException e) {
             for(int i = 0; i < citys.size(); i++)
             {
@@ -69,17 +70,23 @@ public class ShowFunctions {
 
 
             }
+
         } catch (EOFException e) {
             for(int i = 0; i < types.size(); i++)
             {
                 System.out.println(types.get(i));
             }
             System.out.println("\nFim dos registros\n");
+
         } catch (ClassNotFoundException e) {
             System.out.println("Tipo de objeto invalido!");
         } catch (IOException e) {
             System.out.println("Erro de leitura no arquivo");
         }
+
     }
+
+
+
 
 }
