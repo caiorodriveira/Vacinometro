@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -7,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
         int opc = 0;
+        Locale.setDefault(Locale.ENGLISH);
         ResgisterFunctions cT = new ResgisterFunctions();
         ShowFunctions sF = new ShowFunctions();
         ImportOrExport iE = new ImportOrExport();
@@ -14,7 +16,7 @@ public class Main {
 
         do {
             System.out.println("SEJA BEM VINDO AO GLIFE\nSelecione uma das opções abaixo:");
-            System.out.println("[1] - Cadastrar cidade\n[2] - Mostrar Vacinometro\n[3] - Cadastrar cidade/tipo\n[4] - Listar cidades\n[5] - Listar Doses\n[6] - Importar CSV\n[7] - Exportar CSV\n[8] - Sair" );
+            System.out.println("[1] - Cadastrar cidade\n[2] - Mostrar Vacinometro\n[3] - Cadastrar cidade/tipo\n[4] - Listar cidades\n[5] - Listar Doses\n[6] - Importar CSV\n[7] - Exportar CSV\n[8] - Achar cidade\n[9] - Sair" );
             switch (opc = in.nextInt()) {
                 case 1:
                     cT.RegisterCTD();
@@ -38,11 +40,15 @@ public class Main {
                     iE.ExportCSV();
                     break;
                 case 8:
+                    System.out.println("Digite a cidade que deseja encontrar: ");
+                    sF.FindCity(in.next());
+                    break;
+                case 9:
                     break;
                 default:
 
             }
-        } while(opc !=8 );
+        } while(opc !=9 );
         System.out.println("Obrigado por usar GLIFE! Programa encerrado");
         in.close();
     }

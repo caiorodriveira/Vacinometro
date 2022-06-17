@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.EOFException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.nio.file.Files;
@@ -84,6 +85,34 @@ public class ShowFunctions {
             System.out.println("Erro de leitura no arquivo");
         }
 
+    }
+
+
+    public static void FindCity(String ref) {
+        boolean achou = false;
+
+        try (ObjectInputStream input = new ObjectInputStream(Files.newInputStream(Paths.get("dosesApli.dat")))){
+
+            while (true) {
+                DosesAplicadas apl = (DosesAplicadas) input.readObject();
+                if (ref.equals(apl.Cidade)) {
+                    System.out.println("Cidade: " + apl.Cidade);
+                    System.out.println("Tipo de dose: " + apl.TiposDeDose);
+                    System.out.println("Quantidade de doses: " + apl.DosesAplicadas);
+                    achou = true;
+                    break;
+                }
+            }
+            if (!achou) {
+                System.out.println("\nCidade não encontrada!");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Erro: não foi possível encontrar o arquivo " );
+        } catch (IOException e) {
+            System.out.println("Erro de leitura/escrita");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Tipo de objeto invalido!");
+        }
     }
 
 
